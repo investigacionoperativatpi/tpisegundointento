@@ -27,6 +27,7 @@ class FuncionObjetivo extends React.Component{
                 </div>
             ) 
         }
+        console.log(arrO)
         this.setState({ arr: arrO})
     }
 
@@ -67,11 +68,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    setObjFunction
-},dispatch)
+// const mapDispatchToProps = dispatch => bindActionCreators({
+//     setObjFunction
+// },dispatch)
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    // mapDispatchToProps
 )(FuncionObjetivo);

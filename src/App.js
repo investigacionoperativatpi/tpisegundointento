@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
-import Inicio from '../src/pages/Inicio'
+import Inicio from '../src/pages/Inicio';
+import { connect } from 'react-redux';
+import { setVar, setRestrictions} from './store/actions';
 
 function App() {
   return (
@@ -10,4 +12,21 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    var: state.var,
+    restrictions: state.restrictions,
+  }
+  }
+  
+  const mapDispatchToProps = () => {
+    return {
+      setVar,
+      setRestrictions
+    }
+  }
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
