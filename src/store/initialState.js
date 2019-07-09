@@ -1,6 +1,6 @@
 const initialState = {
     var: 3,
-    restricciones: 0,
+    restricciones: 5,
     FuncionObj:{
         objetivo: {},
         tipoOptimizacion: 'max'

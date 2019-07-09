@@ -13,7 +13,7 @@ class Datos extends React.Component{
                     <div className="container borde">
                         <div className="row">
                             <div className="col-12">
-                                <FuncionObjetivo/>
+                                <FuncionObjetivo />
                             </div>
                         </div>
                         <div className="row">

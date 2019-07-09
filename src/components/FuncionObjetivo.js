@@ -14,21 +14,29 @@ class FuncionObjetivo extends React.Component{
         super()
         this.state = {
             arr: [],
+            value:0,
             
         }
     }
 
     componentWillMount() {
-        let arrO = []
+        let arr0 = [],
+        refsCollection = {}
         for (let index = 0; index < this.props.var; index++) {
-            arrO.push(
+            arr0.push(
                 <div className="col-2 borde">
-                    <Input />
+                    <Input name="prueba" key={index} id={index} value={this.state.value} ref={`coeficiente-${index}`}/>
                 </div>
             ) 
         }
-        console.log(arrO)
-        this.setState({ arr: arrO})
+        console.log(arr0)
+        this.setState({ arr: arr0})
+    }
+
+    handlerChargeValue=(event)=>{
+        this.setState({
+            value:Number.parseInt(document.getElementById(`${this.key}`).value, 16)
+        })
     }
 
 
@@ -55,7 +63,6 @@ class FuncionObjetivo extends React.Component{
 
 FuncionObjetivo.propTypes = {
     var: PropTypes.number.isRequired,
-    restricciones: PropTypes.number.isRequired,
     objetivo: PropTypes.array.isRequired,
     setObjFunction: PropTypes.func.isRequired
 }
@@ -63,8 +70,7 @@ FuncionObjetivo.propTypes = {
 const mapStateToProps = (state) => {
     return {
       var: state.var,
-      restricciones: state.restricciones,
-      objectivo: state.FuncionObj.objectivo
+      objectivo: state.FuncionObj.objetivo
     }
 }
 
