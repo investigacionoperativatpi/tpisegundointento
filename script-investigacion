@@ -1,0 +1,27 @@
+ document.getElementById('0').value=70
+ document.getElementById('1').value=210
+ document.getElementById('2').value=140
+
+ document.getElementById('00').value=1
+ document.getElementById('01').value=1
+ document.getElementById('02').value=1
+ document.getElementById('S0').value="<="
+ document.getElementById('V0').value=100
+
+ document.getElementById('10').value=5
+ document.getElementById('11').value=4
+ document.getElementById('12').value=4
+ document.getElementById('S1').value="<="
+ document.getElementById('V1').value=480
+
+ document.getElementById('20').value=40
+ document.getElementById('21').value=20
+ document.getElementById('22').value=30
+ document.getElementById('S2').value="<="
+ document.getElementById('V2').value=3200
+
+ document.getElementById('30').value=40
+ document.getElementById('31').value=10
+ document.getElementById('32').value=40
+ document.getElementById('S3').value="<="
+ document.getElementById('V3').value=3200

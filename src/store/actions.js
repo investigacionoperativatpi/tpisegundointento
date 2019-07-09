@@ -9,7 +9,8 @@ export function setVar(VAR){
 }
 
 export function setRestrictions(RESTRICTIONS) {
-    return { type: SET_RESTRICTIONS, restrictions: RESTRICTIONS };
+    console.log('en la action',RESTRICTIONS)
+    return { type: SET_RESTRICTIONS, restricciones: RESTRICTIONS };
 } 
 
 export function setObjFunction(OBJ) {
@@ -23,5 +24,6 @@ export function setRestrictionsValues(RESTVALUES) {
 }
 
 export function saveResult(result) {
+    console.log('llamo a la action de guardar el resultado', result)
     return { type: SAVE_RESULT, result: result };
 }

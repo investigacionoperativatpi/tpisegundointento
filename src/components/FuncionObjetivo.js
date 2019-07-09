@@ -7,38 +7,70 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setObjFunction } from '../store/actions'
 import { PropTypes } from 'prop-types';
+import { async } from 'q';
 
 
 class FuncionObjetivo extends React.Component{
     constructor() {
         super()
         this.state = {
-            arr: [],
-            value:0,
-            
+            elementos: ['holis'],
+            value:0,   
         }
+        this.armarArreglo = this.armarArreglo.bind(this)
     }
 
-    componentWillMount() {
-        let arr0 = [],
-        refsCollection = {}
+    createObjFunc() {
+        let arr0 = []
         for (let index = 0; index < this.props.var; index++) {
             arr0.push(
                 <div className="col-2 borde">
-                    <Input name="prueba" key={index} id={index} value={this.state.value} ref={`coeficiente-${index}`}/>
+                    <Input name="prueba" key={index} id={index}/>
                 </div>
             ) 
         }
-        console.log(arr0)
-        this.setState({ arr: arr0})
+        return arr0
     }
+
+    armarArreglo() {
+        let elementosInput = []
+        for (let index = 0; index < this.props.var; index++) {
+            elementosInput.push(
+                parseInt(document.getElementById(`${index}`).value)   
+            )
+        }
+        let obj = '{'
+        elementosInput.map((elemento, index) => {
+            if (index < this.props.var -1) {
+                if (index === 1)
+                {
+                    obj = obj.concat(`"${index}": ${elemento},`)    
+                }else{
+                    obj = obj.concat(` "${index}": ${elemento},`)
+                }
+            }else {
+                obj = obj.concat(` "${index}": ${elemento}}`)
+            }
+        })
+        return JSON.parse(obj)
+    }
+
+    click = async () => {
+        const funObj = this.armarArreglo();
+        const tipo = document.getElementById('tipoSimplex').value
+        const objetivo = {}
+        objetivo.obj=funObj
+        objetivo.tipoOptimizacion=tipo
+        console.log('COSA: ', objetivo)
+        this.props.setObjFunction(objetivo);
+    }
+
 
     handlerChargeValue=(event)=>{
         this.setState({
             value:Number.parseInt(document.getElementById(`${this.key}`).value, 16)
         })
     }
-
 
     render(){
         return (
@@ -49,10 +81,14 @@ class FuncionObjetivo extends React.Component{
                 <div className="card-body">
                     <div className="container">
                         <div className="row">
-                            {this.state.arr}
+                            {this.createObjFunc()}
                             <div className="col-2">
                                 <Optimizacion/>
                             </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-10"></div>
+                            <div className="col-2"><button className="btn btn-primary" onClick={this.click}>Continuar</button></div>
                         </div>
                     </div>
                 </div>
@@ -70,15 +106,15 @@ FuncionObjetivo.propTypes = {
 const mapStateToProps = (state) => {
     return {
       var: state.var,
-      objectivo: state.FuncionObj.objetivo
+      objetivo: state.FuncionObj.objetivo
     }
 }
 
-// const mapDispatchToProps = dispatch => bindActionCreators({
-//     setObjFunction
-// },dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+    setObjFunction
+},dispatch)
 
 export default connect(
     mapStateToProps,
-    // mapDispatchToProps
+    mapDispatchToProps
 )(FuncionObjetivo);

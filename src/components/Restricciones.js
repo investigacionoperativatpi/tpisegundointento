@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import './Restricciones.css';
 import Input from './Input';
+import { setRestrictionsValues, saveResult } from '../store/actions';
+import { bindActionCreators } from 'redux';
+import SimpleSimplex from 'simple-simplex'
 
 class Restricciones extends React.Component{
    
@@ -11,13 +13,14 @@ class Restricciones extends React.Component{
         this.state = {
           arr: [],
         }
+        this.armarArreglo = this.armarArreglo.bind(this)
     }
 
-    componentWillMount() {
+    montarRestricciones() {
         let arr1 = []
         for (let index = 0; index < this.props.restricciones; index++) {
                 let arr0 = []
-                for (let index = 0; index < (this.props.var); index++) {
+                for (let indexj = 0; indexj < (this.props.var); indexj++) {
                     arr0.push(
                         // <div className="col-2 borde">
                         //     <Input/>
@@ -25,7 +28,7 @@ class Restricciones extends React.Component{
                         <div className="col-3 borde">
                             <div className="row">
                                 <div className="col-8 borde">
-                                    <Input/>
+                                    <Input key={`${index}${indexj}`} id={`${index}${indexj}`}/>
                                 </div>
                                 
                                 <div className="col-1 borde">
@@ -39,18 +42,17 @@ class Restricciones extends React.Component{
                     <div className="col-3 borde">
                         <div className="row">
                             <div className="col-4">
-                                <select>
-                                    <option value="0">{`=>`}</option>   
-                                    <option value="1">{`<=`}</option>
+                                <select id={`S${index}`}>
+                                    <option value='=>'>{`=>`}</option>   
+                                    <option value='<='>{`<=`}</option>
                                 </select>
                             </div>
                             <div className="col-8 borde">
-                                <Input/>
+                                <Input key={index} id={`V${index}`}/>
                             </div>
                         </div>
                     </div>            
                 )
-                console.log(arr0)
             arr1.push(
                 <div className="col-12">
                     
@@ -61,9 +63,67 @@ class Restricciones extends React.Component{
                 </div>
                 )
         }
-        //console.log(arr1)
-        this.setState({ arr: arr1})
+        return arr1
     }    
+
+    armarArreglo(){
+        let elementosInputRestricciones = []
+        for (let index = 0; index < this.props.restricciones; index++) {
+            let elementosInput = []
+            for (let indexj = 0; indexj < (this.props.var); indexj++) {
+            elementosInput.push(
+                parseInt(document.getElementById(`${index}${indexj}`).value)
+            )
+            }
+            elementosInput.push(
+                document.getElementById(`S${index}`).value
+            )
+            elementosInput.push(
+                parseInt(document.getElementById(`V${index}`).value)   
+            )
+            let restriccion = '{'
+            elementosInput.map((elemento, index) => {
+            if (index < this.props.var -1) {
+                if (index === 1)
+                {
+                    restriccion = restriccion.concat(`"${index}": ${elemento},`)    
+                }else{
+                    restriccion = restriccion.concat(` "${index}": ${elemento},`)
+                }
+            }
+            if (index === this.props.var -1) {
+                restriccion = restriccion.concat(` "${index}": ${elemento}}`)
+            }
+            })
+            let RESTRICCIONES = {}
+            let nameV = JSON.parse(restriccion)
+            RESTRICCIONES.namedVector=nameV
+            RESTRICCIONES.constraint=elementosInput[this.props.var]
+            console.log(Object.keys(RESTRICCIONES.namedVector))
+            RESTRICCIONES.constant=elementosInput[parseInt(this.props.var) +1]
+            elementosInputRestricciones.push(RESTRICCIONES)
+        }
+        return elementosInputRestricciones
+    }
+
+    click = async() => {
+      let restric = this.armarArreglo()
+      await this.props.setRestrictionsValues(restric)
+      const solver = new SimpleSimplex({
+        objective: this.props.objetivo,
+        constraints: this.props.restrictionsValues,
+        optimizationType: this.props.optimizationType
+      })
+      const result = solver.solve({
+          methodName: 'simplex',
+      });
+      console.log(result)
+      this.props.saveResult(result)
+    }
+
+    click2 = async()=>{
+      console.log('este es el state', this.props.state)
+    }
 
     render(){
         return (
@@ -73,7 +133,12 @@ class Restricciones extends React.Component{
                 </div>
                 <div className="card-body">
                     <div className="container">
-                        {this.state.arr}
+                        {this.montarRestricciones()}
+                    </div>
+                    <div className="row">
+                        <div className="col-10"></div>
+                        <div className="col-2"><button className="btn btn-primary" onClick={this.click}>Continuar</button></div>
+                        <div className="col-2"><button className="btn btn-primary" onClick={this.click2}>Ver Resultados</button></div>
                     </div>
                 </div>
             </div>
@@ -83,15 +148,21 @@ class Restricciones extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-      var: state.var,
-      restricciones: state.restricciones,
-      objectivo: state.FuncionObj.objectivo,
-      restrictionsValues: state.ArrRestricciones.restricciones,
-      optimizationType: state.FuncionObj.tipoOptimizacion,
+        var: state.var,
+        restricciones: state.restricciones,
+        objetivo: state.FuncionObj.objetivo,
+        restrictionsValues: state.ArrRestricciones.restricciones,
+        optimizationType: state.FuncionObj.tipoOptimizacion,
+        state: state
     }
 }
 
+const mapDispatchToProps = dispatch => bindActionCreators({
+    setRestrictionsValues,
+    saveResult
+},dispatch)
+
 export default connect(
     mapStateToProps,
-    // mapDispatchToProps
+    mapDispatchToProps
   )(Restricciones)
