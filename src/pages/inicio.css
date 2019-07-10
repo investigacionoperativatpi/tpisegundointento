@@ -16,3 +16,6 @@
 .table{
     color: white
 }
+.card-body p{
+    margin:0;
+}

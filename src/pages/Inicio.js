@@ -16,9 +16,11 @@ class Inicio extends React.Component{
         this.state={
             show: 1
         }
+        this.strProblema = [];
+        
     }
     render(){
-        console.log(this.funcionObj)
+        
         return (
             <div>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,7 +28,7 @@ class Inicio extends React.Component{
                         <div class="navbar-nav row">
                         <button class={`button-navbar col-4 ${this.state.show === 1 && 'selected'}`} onClick={() => {this.setState({show:1})}}><FontAwesomeIcon icon={faPenSquare} />      Cargar datos<span class="sr-only">(current)</span></button>
                         <button class={`button-navbar col-4 ${this.state.show === 2 && 'selected'}`} onClick={() => {this.setState({show:2})}}><FontAwesomeIcon icon={faCheckCircle} />      Solucion</button>
-                        <button class={`button-navbar col-4 ${this.state.show === 3 && 'selected'}`} onClick={() => {this.setState({show:3})}}><FontAwesomeIcon icon={faStream} />      Interpretacion</button>
+                        {/* <button class={`button-navbar col-4 ${this.state.show === 3 && 'selected'}`} onClick={() => {this.setState({show:3})}}><FontAwesomeIcon icon={faStream} />      Interpretacion</button> */}
                         </div>
                     </div>
                     </nav>
@@ -44,16 +46,12 @@ class Inicio extends React.Component{
                     }
                     {this.state.show === 2 &&
                         <div className="container">
-                            <div class="card-columns">
+                            <div class="card-columns mt-2">
                                 <div class="card border-secondary mb-3">
                                     <div class="card-header">Problema</div>
                                     <div class="card-body text-secondary">
-                                        <p>
-                                        {this.funcionObj}
-                                        </p>
-                                        <p>
-                                        {this.restricciones}
-                                        </p>
+                                        {this.mostrarProblema()}
+                                        
                                     </div>
                                 </div>
                                 <div class="card text-white bg-secondary mb-3" >
@@ -75,6 +73,60 @@ class Inicio extends React.Component{
             </div>
         )
     }
+    mostrarProblema(){
+        var strFuncion = 'Z = ';
+        var strRestriccion = '';
+        var coeficientes = Object.values(this.props.funcionObj.objetivo);
+        var opt = this.props.funcionObj.tipoOptimizacion;
+
+        for (let index = 0; index < coeficientes.length; index++) {
+            strFuncion = strFuncion + coeficientes[index] + 'X' + (index+1) + ' ';
+            if (index!== coeficientes.length-1){
+                strFuncion = strFuncion + '+ ';
+            }
+
+        }
+        this.strProblema.push(
+            <p>
+                <strong>
+                Funcion Objetivo:
+                </strong>
+            </p>
+        );
+        this.strProblema.push(
+            <p>
+                {strFuncion}
+            </p>
+        );
+        this.strProblema.push(
+            <p>
+                <strong>
+                Sujeto a:
+                </strong>
+            </p>
+        )
+
+        console.log(this.props.restricciones.restricciones);
+        var restricciones = this.props.restricciones.restricciones;
+        for (let i = 0; i < restricciones.length; i++) {
+            var namedVector = Object.values(restricciones[i].namedVector);
+            strRestriccion = strRestriccion + 'R' + i + ': '
+            var x = 1;
+            namedVector.forEach(coef => {
+                strRestriccion = strRestriccion + coef + 'X' + x + ' + ';
+                x = x + 1;
+            });
+            strRestriccion =  strRestriccion + ' ' +restricciones[i].constraint + ' ' + restricciones[i].constant;
+            this.strProblema.push(
+                <p>
+                    {strRestriccion}
+                </p>
+            );
+        }
+        
+        return  this.strProblema
+
+    }
 }
 const mapStateToProps = (state) => {
     return {
@@ -82,4 +134,4 @@ const mapStateToProps = (state) => {
         restricciones:state.ArrRestricciones,
     }
 }
-export default connect(mapStateToProps,null)(Inicio);
+export default connect(mapStateToProps)(Inicio);
