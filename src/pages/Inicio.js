@@ -48,14 +48,14 @@ class Inicio extends React.Component{
                         <div className="container">
                             
                                <div class="card-colums"> 
-                                <div class="card border-secondary mb-3 col-5">
+                                <div class="card border-secondary mb-3 ">
                                     <div class="card-header">Problema</div>
                                     <div class="card-body text-secondary">
                                         {this.mostrarProblema()}
                                         
                                     </div>
                                 </div>
-                                <div class="card text-white bg-secondary mb-3 col-5" >
+                                <div class="card text-white bg-secondary mb-3 " >
                                     <div class="card-header">Tabla Optima</div>
                                     <div class="card-body">
                                         <Matriz/>
@@ -65,7 +65,7 @@ class Inicio extends React.Component{
                             
                             
                                 <div class="col-3"></div>
-                                <div class="card text-white bg-info mb-3 col-6" >
+                                <div class="card text-white bg-info mb-3" >
                                     <div class="card-header">Solución</div>
                                     <div class="card-body">
                                         <Solucion />
