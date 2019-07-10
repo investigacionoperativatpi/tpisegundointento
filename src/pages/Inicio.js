@@ -6,6 +6,7 @@ import Datos from '../components/Datos'
 import './inicio.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenSquare, faCheckCircle, faStream } from '@fortawesome/free-solid-svg-icons'
+import Matriz from '../components/Matriz';
 
 class Inicio extends React.Component{
     constructor(props) {
@@ -46,6 +47,13 @@ class Inicio extends React.Component{
                                     <Solucion/>
                                 </div>
                                 <div className="col-2"/>
+                            </div>
+                            <div className="row">
+                                <div className="col-2"></div>
+                                <div className="col-8">
+                                    <Matriz/>
+                                </div>
+                                <div className="col-2"></div>
                             </div>
                         </div>
                     }
