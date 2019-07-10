@@ -1,6 +1,12 @@
+ document.getElementById('variables').value = 3
+ document.getElementById('restricciones').value = 4
+ document.getElementById('cosita').click() //id del primer boton
+
+
  document.getElementById('0').value=70
  document.getElementById('1').value=210
  document.getElementById('2').value=140
+document.getElementById('cosita').click() //id del segundo boton
 
  document.getElementById('00').value=1
  document.getElementById('01').value=1
@@ -25,3 +31,4 @@
  document.getElementById('32').value=40
  document.getElementById('S3').value="<="
  document.getElementById('V3').value=3200
+document.getElementById('cosita').click() //id del tercer boton

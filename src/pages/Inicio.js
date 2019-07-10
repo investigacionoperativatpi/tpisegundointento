@@ -1,6 +1,7 @@
 import  React from 'react';
 
 import Parametros from '../components/Parametros'
+import Solucion from '../components/Solucion'
 import Datos from '../components/Datos'
 import './inicio.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,17 +27,25 @@ class Inicio extends React.Component{
                     </div>
                     </nav>
                     {this.state.show === 1 &&
-                        <div>
-                            <h1>Hola estas en inicio</h1>
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-3 borde">
-                                        <Parametros/>
-                                    </div>
-                                    <div className="col-9 borde">
-                                        <Datos/>
-                                    </div>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-3 borde">
+                                    <Parametros/>
                                 </div>
+                                <div className="col-9 borde">
+                                    <Datos/>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    {this.state.show === 2 &&
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-2"/>
+                                <div className="col-8">
+                                    <Solucion/>
+                                </div>
+                                <div className="col-2"/>
                             </div>
                         </div>
                     }
