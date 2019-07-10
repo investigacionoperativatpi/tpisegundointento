@@ -28,7 +28,7 @@ class Inicio extends React.Component{
                         <div class="navbar-nav row">
                         <button class={`button-navbar col-4 ${this.state.show === 1 && 'selected'}`} onClick={() => {this.setState({show:1})}}><FontAwesomeIcon icon={faPenSquare} />      Cargar datos<span class="sr-only">(current)</span></button>
                         <button class={`button-navbar col-4 ${this.state.show === 2 && 'selected'}`} onClick={() => {this.setState({show:2})}}><FontAwesomeIcon icon={faCheckCircle} />      Solucion</button>
-                        {/* <button class={`button-navbar col-4 ${this.state.show === 3 && 'selected'}`} onClick={() => {this.setState({show:3})}}><FontAwesomeIcon icon={faStream} />      Interpretacion</button> */}
+                        <button class={`button-navbar col-4 ${this.state.show === 3 && 'selected'}`} onClick={() => {this.setState({show:3})}} href=""><FontAwesomeIcon icon={faStream} />      Ayuda</button>
                         </div>
                     </div>
                     </nav>
@@ -46,28 +46,35 @@ class Inicio extends React.Component{
                     }
                     {this.state.show === 2 &&
                         <div className="container">
-                            <div class="card-columns mt-2">
-                                <div class="card border-secondary mb-3">
+                            
+                               <div class="card-colums"> 
+                                <div class="card border-secondary mb-3 col-5">
                                     <div class="card-header">Problema</div>
                                     <div class="card-body text-secondary">
                                         {this.mostrarProblema()}
                                         
                                     </div>
                                 </div>
-                                <div class="card text-white bg-secondary mb-3" >
+                                <div class="card text-white bg-secondary mb-3 col-5" >
                                     <div class="card-header">Tabla Optima</div>
                                     <div class="card-body">
                                         <Matriz/>
                                     </div>
                                 </div>
-                                <div class="card text-white bg-info mb-3" >
+                                
+                            
+                            
+                                <div class="col-3"></div>
+                                <div class="card text-white bg-info mb-3 col-6" >
                                     <div class="card-header">Solución</div>
                                     <div class="card-body">
                                         <Solucion />
                                     </div>
                                 </div>
-                                
+                                <div class="col-3"></div>
+
                             </div>
+                            
                         </div>
                     }
             </div>
@@ -110,13 +117,14 @@ class Inicio extends React.Component{
         var restricciones = this.props.restricciones.restricciones;
         for (let i = 0; i < restricciones.length; i++) {
             var namedVector = Object.values(restricciones[i].namedVector);
-            strRestriccion = strRestriccion + 'R' + i + ': '
+            strRestriccion = '';
+            strRestriccion = 'R' + i + ': '
             var x = 1;
             namedVector.forEach(coef => {
                 strRestriccion = strRestriccion + coef + 'X' + x + ' + ';
                 x = x + 1;
             });
-            strRestriccion =  strRestriccion + ' ' +restricciones[i].constraint + ' ' + restricciones[i].constant;
+            strRestriccion = strRestriccion + ' ' +restricciones[i].constraint + ' ' + restricciones[i].constant;
             this.strProblema.push(
                 <p>
                     {strRestriccion}
