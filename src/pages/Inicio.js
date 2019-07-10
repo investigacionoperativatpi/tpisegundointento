@@ -28,7 +28,7 @@ class Inicio extends React.Component{
                         <div class="navbar-nav row">
                         <button class={`button-navbar col-4 ${this.state.show === 1 && 'selected'}`} onClick={() => {this.setState({show:1})}}><FontAwesomeIcon icon={faPenSquare} />      Cargar datos<span class="sr-only">(current)</span></button>
                         <button class={`button-navbar col-4 ${this.state.show === 2 && 'selected'}`} onClick={() => {this.setState({show:2})}}><FontAwesomeIcon icon={faCheckCircle} />      Solucion</button>
-                        <button class={`button-navbar col-4 ${this.state.show === 3 && 'selected'}`} onClick={() => {this.setState({show:3})}} href=""><FontAwesomeIcon icon={faStream} />      Ayuda</button>
+                        <button class={`button-navbar col-4 ${this.state.show === 3 && 'selected'}`} onClick={() => {this.setState({show:3})}} ><FontAwesomeIcon icon={faStream} />  <a href="https://drive.google.com/file/d/1QginC1IjdMj_h4qT810oKtv_3X_RVXf6/view">Ayuda</a>    </button>
                         </div>
                     </div>
                     </nav>
@@ -47,7 +47,7 @@ class Inicio extends React.Component{
                     {this.state.show === 2 &&
                         <div className="container">
                             
-                               <div class="card-colums"> 
+                               <div class="card-columns"> 
                                 <div class="card border-secondary mb-3 ">
                                     <div class="card-header">Problema</div>
                                     <div class="card-body text-secondary">
@@ -55,23 +55,23 @@ class Inicio extends React.Component{
                                         
                                     </div>
                                 </div>
+
+
                                 <div class="card text-white bg-secondary mb-3 " >
                                     <div class="card-header">Tabla Optima</div>
                                     <div class="card-body">
                                         <Matriz/>
                                     </div>
                                 </div>
+                            
                                 
-                            
-                            
-                                <div class="col-3"></div>
                                 <div class="card text-white bg-info mb-3" >
                                     <div class="card-header">Solución</div>
                                     <div class="card-body">
                                         <Solucion />
                                     </div>
                                 </div>
-                                <div class="col-3"></div>
+                                
 
                             </div>
                             
