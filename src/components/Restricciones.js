@@ -138,7 +138,6 @@ class Restricciones extends React.Component{
                     <div className="row">
                         <div className="col-10"></div>
                         <div className="col-2"><button className="btn btn-primary" onClick={this.click}>Continuar</button></div>
-                        <div className="col-2"><button className="btn btn-primary" onClick={this.click2}>Ver Resultados</button></div>
                     </div>
                 </div>
             </div>

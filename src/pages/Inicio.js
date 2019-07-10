@@ -47,33 +47,41 @@ class Inicio extends React.Component{
                     {this.state.show === 2 &&
                         <div className="container">
                             
-                               <div class="card-columns"> 
-                                <div class="card border-secondary mb-3 ">
+                            <div class="row mt-5"> 
+                                <div class="col-sm-1"></div>
+                                <div class="card border-secondary col-sm-4">
                                     <div class="card-header">Problema</div>
                                     <div class="card-body text-secondary">
                                         {this.mostrarProblema()}
                                         
                                     </div>
                                 </div>
-
-
-                                <div class="card text-white bg-secondary mb-3 " >
+                                <div class="col-sm-1"></div>
+                                <div class="card text-white bg-secondary col-sm-5" >
                                     <div class="card-header">Tabla Optima</div>
                                     <div class="card-body">
                                         <Matriz/>
                                     </div>
                                 </div>
-                            
+                                <div class="col-sm-1"></div>
                                 
-                                <div class="card text-white bg-info mb-3" >
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-sm-3"></div>
+                                <div class="card text-white bg-info mb-3 col-sm-6" >
                                     <div class="card-header">Solución</div>
                                     <div class="card-body">
                                         <Solucion />
                                     </div>
                                 </div>
-                                
+                                <div class="col-sm-3"></div>
 
                             </div>
+                                
+                                
+                                
+
+                            
                             
                         </div>
                     }

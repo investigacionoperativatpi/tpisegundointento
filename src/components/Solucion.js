@@ -14,7 +14,7 @@ class Solucion extends React.Component{
                     <tr>
                         <th scope="row">Optimo</th>
                         <td>Z</td>
-                        <td>{this.props.resultado.solution.optimum}</td>
+                        <td>{ Math.round(this.props.resultado.solution.optimum*100)/100}</td>
                     </tr>
                 )
             }
@@ -23,7 +23,7 @@ class Solucion extends React.Component{
                     <tr>
                         <th scope="row">Producir</th>
                         <td>{`X${index}`}</td>
-                        <td>{this.props.resultado.solution.coefficients[index-1]}</td>
+                        <td>{Math.round(this.props.resultado.solution.coefficients[index-1]*100)/100}</td>
                     </tr>
                 )
             }
@@ -41,7 +41,7 @@ class Solucion extends React.Component{
                 <tr>
                     <th scope="row">costo de oportunidad</th>
                     <td>{`X${index +1}`}</td>
-                    <td>{resultadosTabla[index]}</td>
+                    <td>{Math.round(resultadosTabla[index]*100)/100}</td>
                 </tr>
             )
             
@@ -57,7 +57,7 @@ class Solucion extends React.Component{
                 <tr>
                     <th scope="row">Valor Marginal</th>
                     <td>{`S${index +1}`}</td>
-                    <td>{resultadosTabla[index + variable]}</td>
+                    <td>{Math.round(resultadosTabla[index + variable]*100)/100}</td>
                 </tr>
             )
             
