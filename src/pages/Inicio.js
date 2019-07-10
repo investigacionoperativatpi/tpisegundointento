@@ -7,6 +7,8 @@ import './inicio.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenSquare, faCheckCircle, faStream } from '@fortawesome/free-solid-svg-icons'
 import Matriz from '../components/Matriz';
+import { connect } from 'react-redux';
+
 
 class Inicio extends React.Component{
     constructor(props) {
@@ -16,6 +18,7 @@ class Inicio extends React.Component{
         }
     }
     render(){
+        console.log(this.funcionObj)
         return (
             <div>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,19 +44,31 @@ class Inicio extends React.Component{
                     }
                     {this.state.show === 2 &&
                         <div className="container">
-                            <div className="row">
-                                <div className="col-2"/>
-                                <div className="col-8">
-                                    <Solucion/>
+                            <div class="card-columns">
+                                <div class="card border-secondary mb-3">
+                                    <div class="card-header">Problema</div>
+                                    <div class="card-body text-secondary">
+                                        <p>
+                                        {this.funcionObj}
+                                        </p>
+                                        <p>
+                                        {this.restricciones}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="col-2"/>
-                            </div>
-                            <div className="row">
-                                <div className="col-2"></div>
-                                <div className="col-8">
-                                    <Matriz/>
+                                <div class="card text-white bg-secondary mb-3" >
+                                    <div class="card-header">Tabla Optima</div>
+                                    <div class="card-body">
+                                        <Matriz/>
+                                    </div>
                                 </div>
-                                <div className="col-2"></div>
+                                <div class="card text-white bg-info mb-3" >
+                                    <div class="card-header">Solución</div>
+                                    <div class="card-body">
+                                        <Solucion />
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                     }
@@ -61,5 +76,10 @@ class Inicio extends React.Component{
         )
     }
 }
-
-export default Inicio;
+const mapStateToProps = (state) => {
+    return {
+        funcionObj:state.FuncionObj,
+        restricciones:state.ArrRestricciones,
+    }
+}
+export default connect(mapStateToProps,null)(Inicio);
